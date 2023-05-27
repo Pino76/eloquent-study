@@ -10,6 +10,9 @@ class PhoneNumber extends Model
 {
     use HasFactory;
 
+    #Assegnazione Massiva
+    protected $fillable = ['contact_id','phone'];
+
     public function contact(): BelongsTo
     {
         return $this->belongsTo(Contact::class);
