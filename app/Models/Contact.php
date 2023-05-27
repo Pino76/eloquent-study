@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Contact extends Model
 {
@@ -34,7 +35,7 @@ class Contact extends Model
     }
 
 
-    public function favorites()
+    public function favorites(): MorphMany
     {
         return $this->morphMany(Favorite::class, 'favoritable');
     }
