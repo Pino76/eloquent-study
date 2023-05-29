@@ -14,28 +14,29 @@ class ContactController extends Controller
     public function index()
     {
         /*  Esempio 1  */
-        $contactIds = [1,2];
+      /*  $contactIds = [1,2];
         $contactToAssociate = Contact::whereIn('id', $contactIds)->get();
         collect($contactToAssociate)->each(function ($contact){
             $contact->user()->associate(User::find(1))->save();
-            #$contact->user()->dissociate(User::find(1))->save();
-        });
+            #$contacts->user()->dissociate(User::find(1))->save();
+        }); */
 
 
         /* Esempio 2 */
-        $userContacts = User::find(1)->contacts()->where('qualification','impiegato')->get();
+       # $userContacts = User::find(1)->contacts()->where('qualification','impiegato')->get();
 
 
         /* Esempio 3 */
-        $userWithRelation = User::find(1)->has('contacts')->get(); #controlla se c'è una relazione Classe User e Contacts
+        # $userWithRelation = User::find(1)->has('contacts')->get(); #controlla se c'è una relazione Classe User e Contacts
 
 
         #Esempio 4
-        $userWithRelationAndQueryCustom = Contact::whereHas('phoneNumber', function($query){
+      /*  $userWithRelationAndQueryCustom = Contact::whereHas('phoneNumber', function($query){
             $query->where('phone', 'like', '%3%');
-        })->get();
+        })->get(); */
 
-        return $userWithRelationAndQueryCustom;
+        $users = User::with('contacts' , 'branch')->get();
+        return view('contacts.index' , ['users' => $users]);
     }
 
     /**
